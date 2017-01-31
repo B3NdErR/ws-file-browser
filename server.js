@@ -2,17 +2,27 @@
 
 const Hapi = require('hapi');
 const server = new Hapi.Server();
+const FileManager = require('./src/FileManager');
+const fm = new FileManager();
+
 
 server.connection({
-  host: 'localhost',
-  port: 8080
+  host: '0.0.0.0',
+  port: process.env.PORT
 });
 
 server.route({
   method: 'GET',
   path: '/hello',
   handler: (request, reply) => {
-      return reply('Hello world');
+    return reply('Hello world');
+  }
+});
+server.route({
+  method: 'GET',
+  path: '/files',
+  handler: (request, reply) => {
+    return reply('list');
   }
 });
 
