@@ -8,7 +8,7 @@ const fm = new FileManager();
 
 server.connection({
   host: '0.0.0.0',
-  port: process.env.PORT
+  port: 8080
 });
 
 server.route({
@@ -22,7 +22,10 @@ server.route({
   method: 'GET',
   path: '/files',
   handler: (request, reply) => {
-    return reply('list');
+    return fm.list('./filesystem')
+      .then(data => reply(data))
+      .catch(err => console.log(err));
+    //return reply(list);
   }
 });
 
